@@ -77,8 +77,11 @@ class Queue {
     // Peeks the next process and runs its `executeProcess` method with input `time`
     // Call `this.manageTimeSlice` with the peeked process and input `time`
     doCPUWork(time) {
-        
-    }
+        for (let i = 0; i < this.processes.length - 1; i++) {
+            if() {
+                
+            }
+        }
 
     // Execute a blocking process
     // Peeks the next process and runs its `executeBlockingProcess` method with input `time`

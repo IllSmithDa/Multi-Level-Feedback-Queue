@@ -53,12 +53,18 @@ class Scheduler {
     handleInterrupt(queue, process, interrupt) {
         switch (interrupt) {
             case PROCESS_BLOCKED:
+                Queue.prototype.enqueue = function(process) {
+                    // Check to see if value is defined
+                    if (process) {
+                        this.storage[this.count] = value;
+                        this.count++;
+                    }
+                }
                 break;
             case PROCESS_READY:
                 break;
             case LOWER_PRIORITY:
                 break;    
-        
         }
 
     }
