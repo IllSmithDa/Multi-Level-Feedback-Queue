@@ -23,7 +23,7 @@ class Process {
 
     // Checks that this process no longer has any more CPU or blocking time it needs
     isFinished() {
-        
+        return (this.cpuTimeNeeded === 0 && this.blockingTimeNeeded === 0);
     }
 
     // Sets this process's `this.stateChanged` property to `false`
@@ -32,6 +32,13 @@ class Process {
     // Also toggle its `this.stateChanged` property to `true`
     // Else, decrement this process's `this.cpuTimeNeeded` property by the input `time`
     executeProcess(time) {
+        // sets process state to false 
+        this.stateChanged = false;
+        if(this.blockingTimeNeeded > 0) {
+            SchedulerInterrupt.PROCESS_BLOCKED; 
+            this.stateChanged = true;
+            this.cpuTimeNeeded -= time;
+        }
 
    }
 
@@ -39,7 +46,17 @@ class Process {
    // If `this.blockingTimeNeeded` is 0 or less, emit a queue interrupt nofifying 
    // the process is ready and toggle `this.stateChanged` to `true`
     executeBlockingProcess(time) {
+        // decrement blocking time by input time 
+        this.blockingTimeNeeded -= time;
 
+        // if blocking time is at least 0 or less
+        if (this.blockingTimeNeeded <= 0) {
+            //emit a queue
+            SchedulerInterrupt.PROCESS_READY;
+
+            // state has been changed
+            this.stateChanged = true;
+        } 
     }
 
     // Returns this process's `this.stateChanged` property

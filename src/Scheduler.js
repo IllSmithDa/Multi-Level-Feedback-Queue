@@ -29,12 +29,14 @@ class Scheduler {
     // If yes, then break out of the infinite loop
     // Otherwise, perform another loop iteration
     run() {
-        
+        while (this.runningQueues) {
+
+        }
     }
 
     // Checks that all queues have no processes 
     allEmpty() {
-        
+        return this.runningQueues.length === 0;
     }
 
     // Adds a new process to the highest priority level running queue
@@ -49,7 +51,16 @@ class Scheduler {
     // If it is a running queue, add the process to the next lower priority queue, or back into itself if it is already in the lowest priority queue
     // If it is a blocking queue, add the process back to the blocking queue
     handleInterrupt(queue, process, interrupt) {
+        switch (interrupt) {
+            case PROCESS_BLOCKED:
+                break;
+            case PROCESS_READY:
+                break;
+            case LOWER_PRIORITY:
+                break;    
         
+        }
+
     }
 
     // Private function used for testing; DO NOT MODIFY
