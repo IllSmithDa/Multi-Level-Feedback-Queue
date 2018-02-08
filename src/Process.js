@@ -35,12 +35,12 @@ class Process {
         // sets process state to false 
         this.stateChanged = false;
         if(this.blockingTimeNeeded > 0) {
-            SchedulerInterrupt.PROCESS_BLOCKED; 
+            //SchedulerInterrupt.PROCESS_BLOCKED; 
+            this.queue.emitInterrupt(this, SchedulerInterrupt.PROCESS_BLOCKED);
             this.stateChanged = true;
             this.cpuTimeNeeded -= time;
         }
-
-   }
+    }
 
    // Decrement this process's `this.blockingTimeNeeded` by the input `time`
    // If `this.blockingTimeNeeded` is 0 or less, emit a queue interrupt nofifying 
@@ -52,7 +52,7 @@ class Process {
         // if blocking time is at least 0 or less
         if (this.blockingTimeNeeded <= 0) {
             //emit a queue
-            SchedulerInterrupt.PROCESS_READY;
+            this.queue.emitInterrupt(this, SchedulerInterrupt.PROCESS_READY);
 
             // state has been changed
             this.stateChanged = true;

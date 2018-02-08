@@ -21,6 +21,7 @@ class Queue {
     // Return the newly added process
     enqueue(process) {
         this.processes.push(process);
+        
     }
 
     // Removes the least-recently added process from the list of processes
@@ -68,8 +69,8 @@ class Queue {
         }
         if (this.quantumClock > this.quantum) {
             this.quantumClock = 0;
-            this.processes.shift();
-            SchedulerInterrupt.LOWER_PRIORITY;
+            let dequeue = dequeue();
+            handleInterrupt(dequeue, currentProcess, SchedulerInterrupt.LOWER_PRIORITY);
         }
     }
 
@@ -77,17 +78,20 @@ class Queue {
     // Peeks the next process and runs its `executeProcess` method with input `time`
     // Call `this.manageTimeSlice` with the peeked process and input `time`
     doCPUWork(time) {
-        for (let i = 0; i < this.processes.length - 1; i++) {
-            if() {
-                
-            }
-        }
+         //grabs the first elment and processes it.
+        let peekedProcess = peek();
+        peekedProcess.executeProcess(time);
+        this.manageTimeSlice(peekedProcess, time);
+    }
 
     // Execute a blocking process
     // Peeks the next process and runs its `executeBlockingProcess` method with input `time`
     // Call `this.manageTimeSlice` with the peeked process and input `time`
     doBlockingWork(time) {
-        
+        //grabs the first elment and processes it.
+        let peekedProcess = peek();
+        peekedProcess.executeBlockingProcess(time);
+        this.manageTimeSlice(peekedProcess, time);
     }
 
     // The queue's interrupt handler for notifying when a process needs to be moved to a different queue
@@ -96,7 +100,12 @@ class Queue {
     // In the case of a PROCESS_BLOCKED interrupt, emit the appropriate scheduler interrupt to the scheduler's interrupt handler
     // In the case of a PROCESS_READY interrupt, emit the appropriate scheduler interrupt to the scheduler's interrupt handler
     emitInterrupt(source, interrupt) {
-
+        for (let i = 0; i < this.processes.length -1; i++) {
+            if ( this.processes[i] === source) {
+                this.processes.splice()
+                handleInterrupt
+            }
+        }
     }
 }
 

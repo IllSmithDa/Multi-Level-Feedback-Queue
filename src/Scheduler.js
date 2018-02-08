@@ -1,4 +1,5 @@
 const Queue = require('./Queue'); 
+
 const { 
     QueueType,
     PRIORITY_LEVELS,
@@ -29,8 +30,28 @@ class Scheduler {
     // If yes, then break out of the infinite loop
     // Otherwise, perform another loop iteration
     run() {
-        while (this.runningQueues) {
+        while (this.runningQueues.length > 0) {
+            // grabs the current time
+            let currentDate = new Date();
+            // gets the work time 
+            let workTime = currentDate - this.clock;
+            // update clock to current tim
+            this.clock = currentDate;
 
+            // checking if there is a blocking que and run blocking process 
+            // if there is 
+            if(blockingQueue) {
+                executeBlockingProcess(workTime);
+            }
+
+            // loop through running processes and 
+            for (let i = 0; i < runningQueues.length -1 ; i++) {
+                runningQueues[i].executeProcess(workTime);
+            }
+
+            if(allEmpty() === 0) {
+                break;
+            }
         }
     }
 
