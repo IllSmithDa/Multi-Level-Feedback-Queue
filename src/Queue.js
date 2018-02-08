@@ -102,8 +102,10 @@ class Queue {
     emitInterrupt(source, interrupt) {
         for (let i = 0; i < this.processes.length -1; i++) {
             if ( this.processes[i] === source) {
-                this.processes.splice()
-                handleInterrupt
+                let process = this.processes.splice();
+               if (process = "PROCESS_BLOCKED") {
+                    handleInterrupt()
+               }
             }
         }
     }

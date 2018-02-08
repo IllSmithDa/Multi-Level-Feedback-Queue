@@ -62,7 +62,7 @@ class Scheduler {
 
     // Adds a new process to the highest priority level running queue
     addNewProcess(process) {
-        
+        Queue.priorityLevel[0] = process;
     }
 
     // The scheduler's interrupt handler that receives a queue, a process, and an interrupt string
@@ -74,17 +74,13 @@ class Scheduler {
     handleInterrupt(queue, process, interrupt) {
         switch (interrupt) {
             case PROCESS_BLOCKED:
-                Queue.prototype.enqueue = function(process) {
-                    // Check to see if value is defined
-                    if (process) {
-                        this.storage[this.count] = value;
-                        this.count++;
-                    }
-                }
+                this.blockingQueue = process;
                 break;
             case PROCESS_READY:
+                Queue.priorityLevel[0] = process;
                 break;
             case LOWER_PRIORITY:
+                
                 break;    
         }
 
